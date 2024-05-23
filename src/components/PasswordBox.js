@@ -1,6 +1,6 @@
-import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { useTypewriter } from "react-simple-typewriter";
 import CustomButton from "./atoms/CustomButton";
 import CustomCheckbox from "./atoms/CustomCheckbox";
 const PasswordBox = () => {
@@ -56,12 +56,10 @@ const PasswordBox = () => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password);
   };
-
   return (
     <div className="container">
       <h3>
-        Random <span>{text}</span>
-        &nbsp;Generator
+        Random <span>{text}</span> &nbsp;Generator
       </h3>
       <TextField
         type="number"
@@ -78,28 +76,13 @@ const PasswordBox = () => {
         id=""
         value={password}
       />
-      <Grid
-        container
-        rowSpacing={{ xs: 1, sm: 2 }}
-        columnSpacing={{ xs: 2, sm: 1, md: 1 }}
-      >
-        <Grid item xs={6}>
-          <CustomButton
-            onClick={generatePassword}
-            color="success"
-            children={"GeneratePassword"}
-            size="small"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <CustomButton
-            onClick={copyToClipboard}
-            color="primary"
-            children={"Copy to clipboard"}
-            size="small"
-          />
-        </Grid>
-      </Grid>
+
+      <CustomButton
+        onClick={generatePassword}
+        color="primary"
+        children={"Generate password"}
+        size="small"
+      />
 
       <CustomCheckbox
         checked={includeNumbers}
@@ -116,11 +99,19 @@ const PasswordBox = () => {
         onChange={(e) => setIncludeSpecialChars(e.target.checked)}
         label="Include Special Characters"
       />
+      <CustomButton
+        onClick={copyToClipboard}
+        color="success"
+        children={"Copy password to clipboard"}
+        size="small"
+      />
       <div className="prevpass">
         <h4>Last 5 Passwords</h4>
-        <ol>
+        <ol type="1">
           {previousPasswords.map((pwd, index) => (
-            <li key={pwd}>{pwd}</li>
+            <li key={pwd}>
+              {index + 1}.&nbsp;&nbsp;{pwd}
+            </li>
           ))}
         </ol>
       </div>
